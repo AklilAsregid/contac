@@ -50,12 +50,9 @@ router.post('/login', async(req, res) => {
         id: findEmail._id,
         name: findEmail.name
     }
-    jwt.sign({ user }, process.env.TOKEN_SECRET, { expiresIn: 3 * 60 * 60 + 's' }, (err, token) => {
+    jwt.sign({ user }, process.env.TOKEN_SECRET, { expiresIn: 7 * 24 * 60 * 60 + 's' }, (err, token) => {
         res.json({ token: token })
     })
-    req.session.user = findEmail._id
-
-
 })
 
 module.exports = router

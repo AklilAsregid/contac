@@ -1,19 +1,15 @@
 const express = require('express')
-const session = require('express-session')
 const mongoose = require('mongoose')
 const app = express()
 const dotenv = require('dotenv')
 const cors = require('cors')
 const path = require('path')
-const { process } = require('@hapi/joi/lib/errors')
 
 //configuring dot env to use varial just process.env.name of 
 dotenv.config();
-
-const db = "mongodb://localhost:27017/Auth"
-    //mongo uri MONGO_URI
-    //connect to Db
-mongoose.connect(db, {
+//mongo uri MONGO_URI
+//connect to Db
+mongoose.connect(process.env.DB_CONNECT, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
@@ -23,13 +19,6 @@ mongoose.connect(db, {
 
 //enabling cors
 app.use(cors())
-
-//enabling sessions
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true
-}))
 
 //middleware parsing body
 app.use(express.json())
@@ -48,7 +37,6 @@ if (true) {
     app.get(/.*/, (req, res) => res.sendFile(__dirname + '/server/public/index.html'))
 }
 
-//const port = process.env.PORT || 2000
-const port = 2000;
+const port = process.env.PORT || 2000
 
 app.listen(port, () => console.log(`Server started running on Port ${port}`))

@@ -29,13 +29,11 @@ app.use('/api/user', require('./server/routes/auth'))
 app.use('/api/contact', require('./server/routes/contact'))
 
 //handle Productin
-if (true) {
     //static folder
     app.use(express.static(__dirname + '/server/public/'))
 
     //handle SPA
     app.get(/.*/, (req, res) => res.sendFile(__dirname + '/server/public/index.html'))
-}
 
 const port = process.env.PORT || 2000
 
